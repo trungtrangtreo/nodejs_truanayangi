@@ -42,15 +42,15 @@ app.use(morgan('dev'));
 // =================================================================
 // routes ==========================================================
 // =================================================================
-app.get('/setup', function(req, res) {
+app.get('/register', function(req, res) {
 
 	// create a sample user
-	var nick = new User({ 
-		name: 'Nick Cerminara', 
-		password: 'password',
-		admin: true 
+	var user = new User({ 
+		uid: req.body.uid,
+		name: req.body.name, 
+		avatar: req.body.avatar,
 	});
-	nick.save(function(err) {
+	user.save(function(err) {
 		if (err) throw err;
 
 		console.log('User saved successfully');
@@ -72,10 +72,10 @@ var apiRoutes = express.Router();
 // authentication (no middleware necessary since this isnt authenticated)
 // ---------------------------------------------------------
 // http://localhost:8080/api/authenticate
-apiRoutes.post('/authenticate', function(req, res) {
+apiRoutes.post('/login', function(req, res) {
 	// find the user
 	User.findOne({
-		name: req.body.name
+		name: req.body.uid
 	}, function(err, user) {
 
 		if (err) throw err;
