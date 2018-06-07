@@ -147,7 +147,7 @@ apiRoutes.use(function(req, res, next) {
 // authenticated routes
 // ---------------------------------------------------------
 apiRoutes.get('/', function(req, res) {
-	res.json({ message: 'Welcome to the coolest API on earth!' });
+	res.json({ message: 'Hello World' });
 });
 
 apiRoutes.get('/users', function(req, res) {
