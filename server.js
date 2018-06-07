@@ -42,21 +42,7 @@ app.use(morgan('dev'));
 // =================================================================
 // routes ==========================================================
 // =================================================================
-app.get('/register', function(req, res) {
 
-	// create a sample user
-	var user = new User({ 
-		uid: req.body.uid,
-		name: req.body.name, 
-		avatar: req.body.avatar,
-	});
-	user.save(function(err) {
-		if (err) throw err;
-
-		console.log('User saved successfully');
-		res.json({ success: true });
-	});
-});
 
 // basic route (http://localhost:8080)
 app.get('/', function(req, res) {
@@ -72,6 +58,26 @@ var apiRoutes = express.Router();
 // authentication (no middleware necessary since this isnt authenticated)
 // ---------------------------------------------------------
 // http://localhost:8080/api/authenticate
+
+
+app.post('/register', function(req, res) {
+
+	// create a sample user
+	var user = new User({ 
+		uid: req.body.uid,
+		deviceId: req.body.deviceId,
+		name: req.body.name, 
+		avatar: req.body.avatar,
+	});
+	user.save(function(err) {
+		if (err) throw err;
+		
+		console.log('User saved successfully');
+		res.json({ success : true , message :'Register Success' });
+	});
+});
+
+
 apiRoutes.post('/login', function(req, res) {
 	// find the user
 	User.findOne({
@@ -104,9 +110,7 @@ apiRoutes.post('/login', function(req, res) {
 					token: token
 				});
 			}		
-
 		}
-
 	});
 });
 
