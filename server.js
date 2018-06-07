@@ -60,7 +60,7 @@ app.get('/register', function(req, res) {
 
 // basic route (http://localhost:8080)
 app.get('/', function(req, res) {
-	res.send('Hello! The API is at http://localhost:' + port + '/api');
+	res.send('Hello World The API is at http://localhost:' + port + '/api');
 });
 
 // ---------------------------------------------------------
