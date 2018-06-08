@@ -45,19 +45,40 @@ app.use(morgan('dev'));
 
 app.post('/register', function(req, res) {
 
+	User.findOne({
+		uid: req.body.uid
+	},function(err,user){
+		
+		if(err) throw err;
 
-	// create a sample user
-	var user = new User({ 
-		uid: req.body.uid,
-		deviceId: req.body.deviceId,
-		name: req.body.name, 
-		avatar: req.body.avatar,
-	});
-	user.save(function(err) {
-		if (err) throw err;
-		console.log('User saved successfully');
-		res.json({ success : true , message :'Register Success' });
+		if(user){
+			User.findById(uid, function(err, user) {
+				if (err) throw err;
+				// change the users location
+				user.deviceId = req.body.deviceId;
+			  
+				// save the user
+				user.save(function(err) {
+				  if (err) throw err;
+			  
+				  console.log('User successfully updated!');
+				});
+			  });
 
+		}else{
+			var user = new User({ 
+				uid: req.body.uid,
+				deviceId: req.body.deviceId,
+				name: req.body.name, 
+				avatar: req.body.avatar,
+			});
+			user.save(function(err) {
+				if (err) throw err;
+				console.log('User saved successfully');
+
+				res.json(Utils.response(true,'Register Success'));		
+			});
+		}
 	});
 });
 
