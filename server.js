@@ -43,24 +43,8 @@ app.use(morgan('dev'));
 // routes ==========================================================
 // =================================================================
 
-
-// basic route (http://localhost:8080)
-app.get('/', function(req, res) {
-	res.send('Hello World The API is at http://localhost:' + port + '/api');
-});
-
-// ---------------------------------------------------------
-// get an instance of the router for api routes
-// ---------------------------------------------------------
-var apiRoutes = express.Router(); 
-
-// ---------------------------------------------------------
-// authentication (no middleware necessary since this isnt authenticated)
-// ---------------------------------------------------------
-// http://localhost:8080/api/authenticate
-
-
 app.post('/register', function(req, res) {
+
 
 	// create a sample user
 	var user = new User({ 
@@ -71,11 +55,30 @@ app.post('/register', function(req, res) {
 	});
 	user.save(function(err) {
 		if (err) throw err;
-		
 		console.log('User saved successfully');
 		res.json({ success : true , message :'Register Success' });
+
 	});
 });
+
+
+// basic route (http://localhost:8080)
+app.get('/', function(req, res) {
+	res.send('Hello World The API is at http://localhost:' + port + '/api');
+});
+
+
+
+
+// ---------------------------------------------------------
+// get an instance of the router for api routes
+// ---------------------------------------------------------
+var apiRoutes = express.Router(); 
+
+// ---------------------------------------------------------
+// authentication (no middleware necessary since this isnt authenticated)
+// ---------------------------------------------------------
+// http://localhost:8080/api/authenticate
 
 
 apiRoutes.post('/login', function(req, res) {
