@@ -43,26 +43,22 @@ app.use(morgan('dev'));
 // routes ==========================================================
 // =================================================================
 
-app.post('/register', function(req, res) {
 
+app.post('/register', function(req, res) {
+	const uid= req.body.uid;
 	User.findOne({
-		uid: req.body.uid
+		uid
 	},function(err,user){
 		
 		if(err) throw err;
 
 		if(user){
-			User.findById(uid, function(err, user) {
+
+			User.findOneAndUpdate({ deviceId: user.deviceId }, { deviceId: req.body.deviceId }, function(err, user) {
 				if (err) throw err;
-				// change the users location
-				user.deviceId = req.body.deviceId;
 			  
-				// save the user
-				user.save(function(err) {
-				  if (err) throw err;
-			  
-				  console.log('User successfully updated!');
-				});
+				// we have the updated user returned to us
+				res.send('Update Success');
 			  });
 
 		}else{
@@ -72,15 +68,25 @@ app.post('/register', function(req, res) {
 				name: req.body.name, 
 				avatar: req.body.avatar,
 			});
+		
 			user.save(function(err) {
 				if (err) throw err;
 				console.log('User saved successfully');
-
 				res.json(Utils.response(true,'Register Success'));		
 			});
 		}
 	});
 });
+
+	app.get('/getAll',(req,res)=>{
+		User.find({}, function(err, users) {
+			if (err) throw err;
+		
+			// object of all the users
+			res.json(users);
+			console.log(users);
+		});
+	})
 
 
 // basic route (http://localhost:8080)
