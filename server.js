@@ -190,9 +190,9 @@ apiRoutes.get('/users', function(req, res) {
 	});
 });
 
-apiRoutes.post('/pushNotify',(req,res)=>{
+app.post('/pushNotify',(req,res)=>{
 
-	var registrationToken = 'dtlPHeoHWgo:APA91bG6aNAGVqKa9IZ14H6c9DBGoXmlk4-TJ0UXpUXRUJWQfQaipJwHzAcAHEShbmfJaFCk0al8YTylQ1L5TFI4t7GFK2odYgozC_NxIhvVgXFcH1YCQlN4zrmE6QjVQBlD50p28Egq';
+	var registrationToken = 'dYdjYeS1KMg:APA91bGmpIxDMM7iBsJq29orCzvhivKpumOI-yb5o5LOrOLM2rE6cy2Wngxyja2uNk0rAbYY3Tsvgtcp3gfP-3bsNhUKcblWWzGm310SH23f3GB_0duR3IllGND8GONCYnLe4edhh5th';
 
 	// See documentation on defining a message payload.
 	var message = {
