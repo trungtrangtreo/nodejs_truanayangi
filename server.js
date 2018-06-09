@@ -72,7 +72,16 @@ app.post('/register', function(req, res) {
 			user.save(function(err) {
 				if (err) throw err;
 				console.log('User saved successfully');
-				res.json(Utils.response(true,'Register Success'));		
+				
+				var payload = {
+					admin: false
+				}
+
+				var token = jwt.sign(payload, app.get('superSecret'), {
+					expiresIn: 86400 // expires in 24 hours
+				});
+
+				res.json(Utils.response(true,'Register Success',token));		
 			});
 		}
 	});
